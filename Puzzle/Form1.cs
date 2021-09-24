@@ -12,8 +12,8 @@ namespace Puzzle
 {
     public partial class Form1 : Form
     {
-        string[,] MatrizInicial = new string[3, 3];
-        string[,] MatrizFinal = new string[3, 3];
+        int[,] MatrizInicial = new int[3, 3];
+        int[,] MatrizFinal = new int[3, 3];
         int countFinal = 0;
 
         public Form1()
@@ -21,28 +21,87 @@ namespace Puzzle
             InitializeComponent();
         }
 
-        private void Embaralhar(object sender, EventArgs e)
+        private void EmbaralharTudo()
         {
-            
+            int repeticoes = 20, linha, coluna, aux;
+            for (int num = 0; num < repeticoes; num++)
+            {
+                (linha, coluna) = procurarVazio();
+
+                Random numeroAleatorio = new Random();
+                int direcao = numeroAleatorio.Next(1, 4);
+                /// 1 - Esquerda
+                /// 2 - Cima
+                /// 3 - Direita
+                /// 4 - Baixo
+                switch (direcao)
+                {
+                    case 1:
+                        if (coluna > 0)
+                        {
+                            aux = MatrizFinal[linha, coluna];
+                            MatrizFinal[linha, coluna] = MatrizFinal[linha, coluna - 1];
+                            MatrizFinal[linha, coluna - 1] = aux;
+                        }
+                        break;
+                    case 2:
+                        if (linha > 0)
+                        {
+                            aux = MatrizFinal[linha, coluna];
+                            MatrizFinal[linha, coluna] = MatrizFinal[linha - 1, coluna];
+                            MatrizFinal[linha - 1, coluna] = aux;
+                        }
+                        break;
+                    case 3:
+                        if (coluna < 2)
+                        {
+                            aux = MatrizFinal[linha, coluna];
+                            MatrizFinal[linha, coluna] = MatrizFinal[linha, coluna + 1];
+                            MatrizFinal[linha, coluna + 1] = aux;
+                        }
+                        break;
+                    case 4:
+                        if (linha < 2)
+                        {
+                            aux = MatrizFinal[linha, coluna];
+                            MatrizFinal[linha, coluna] = MatrizFinal[linha + 1, coluna];
+                            MatrizFinal[linha + 1, coluna] = aux;
+                        }
+                        break;
+                }
+            }
+            popularBotoes();
         }
 
-        private void Definir(object sender, EventArgs e)
+        private (int, int) procurarVazio()
         {
-            MatrizInicial[0, 0] = btnI1.Text;
-            MatrizInicial[0, 1] = btnI2.Text;
-            MatrizInicial[0, 2] = btnI3.Text;
-            MatrizInicial[1, 0] = btnI4.Text;
-            MatrizInicial[1, 1] = btnI5.Text;
-            MatrizInicial[1, 2] = btnI6.Text;
-            MatrizInicial[2, 0] = btnI7.Text;
-            MatrizInicial[2, 1] = btnI8.Text;
-            MatrizInicial[2, 2] = btnI0.Text;
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (MatrizFinal[i, j] == 0)
+                    {
+                        return (i, j);
+                    }
+                }
+            }
+            return (2, 2);
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
 
+        private void popularBotoes()
+        {
+            btnI1.Text = MatrizFinal[0, 0].ToString();
+            btnI2.Text = MatrizFinal[0, 1].ToString();
+            btnI3.Text = MatrizFinal[0, 2].ToString();
+            btnI4.Text = MatrizFinal[1, 0].ToString();
+            btnI5.Text = MatrizFinal[1, 1].ToString();
+            btnI6.Text = MatrizFinal[1, 2].ToString();
+            btnI7.Text = MatrizFinal[2, 0].ToString();
+            btnI8.Text = MatrizFinal[2, 1].ToString();
+            btnI0.Text = MatrizFinal[2, 2].ToString();
         }
+
 
         private void preencherFinal(Button btn)
         {
@@ -94,7 +153,7 @@ namespace Puzzle
                 this.countFinal++;
             }
             else
-            if(this.countFinal == 8)
+            if (this.countFinal == 8)
             {
                 btnF0.Text = btn.Text;
                 this.countFinal++;
@@ -178,5 +237,18 @@ namespace Puzzle
             btnF8.Text = "";
         }
 
+
+        private void btnDefinirEF_Click(object sender, EventArgs e)
+        {
+            MatrizFinal[0, 0] = Convert.ToInt32(btnF1.Text);
+            MatrizFinal[0, 1] = Convert.ToInt32(btnF2.Text);
+            MatrizFinal[0, 2] = Convert.ToInt32(btnF3.Text);
+            MatrizFinal[1, 0] = Convert.ToInt32(btnF4.Text);
+            MatrizFinal[1, 1] = Convert.ToInt32(btnF5.Text);
+            MatrizFinal[1, 2] = Convert.ToInt32(btnF6.Text);
+            MatrizFinal[2, 0] = Convert.ToInt32(btnF7.Text);
+            MatrizFinal[2, 1] = Convert.ToInt32(btnF8.Text);
+            MatrizFinal[2, 2] = Convert.ToInt32(btnF0.Text);
+        }
     }
 }

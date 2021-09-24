@@ -38,7 +38,7 @@ namespace Puzzle
             this.btnI6 = new System.Windows.Forms.Button();
             this.btnI3 = new System.Windows.Forms.Button();
             this.btnI5 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnEmbaralhar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnF0 = new System.Windows.Forms.Button();
@@ -60,208 +60,187 @@ namespace Puzzle
             this.btnEF2 = new System.Windows.Forms.Button();
             this.btnEF1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.button11 = new System.Windows.Forms.Button();
+            this.btnDefinirEF = new System.Windows.Forms.Button();
             this.btnRestartEF = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnI1
             // 
-            this.btnI1.Location = new System.Drawing.Point(10, 48);
-            this.btnI1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnI1.Location = new System.Drawing.Point(9, 36);
             this.btnI1.Name = "btnI1";
-            this.btnI1.Size = new System.Drawing.Size(86, 100);
+            this.btnI1.Size = new System.Drawing.Size(75, 75);
             this.btnI1.TabIndex = 0;
             this.btnI1.UseVisualStyleBackColor = true;
             // 
             // btnI4
             // 
-            this.btnI4.Location = new System.Drawing.Point(10, 156);
-            this.btnI4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnI4.Location = new System.Drawing.Point(9, 117);
             this.btnI4.Name = "btnI4";
-            this.btnI4.Size = new System.Drawing.Size(86, 100);
+            this.btnI4.Size = new System.Drawing.Size(75, 75);
             this.btnI4.TabIndex = 0;
             this.btnI4.UseVisualStyleBackColor = true;
             // 
             // btnI7
             // 
-            this.btnI7.Location = new System.Drawing.Point(10, 264);
-            this.btnI7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnI7.Location = new System.Drawing.Point(9, 198);
             this.btnI7.Name = "btnI7";
-            this.btnI7.Size = new System.Drawing.Size(86, 100);
+            this.btnI7.Size = new System.Drawing.Size(75, 75);
             this.btnI7.TabIndex = 0;
             this.btnI7.UseVisualStyleBackColor = true;
             // 
             // btnI8
             // 
-            this.btnI8.Location = new System.Drawing.Point(103, 264);
-            this.btnI8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnI8.Location = new System.Drawing.Point(90, 198);
             this.btnI8.Name = "btnI8";
-            this.btnI8.Size = new System.Drawing.Size(86, 100);
+            this.btnI8.Size = new System.Drawing.Size(75, 75);
             this.btnI8.TabIndex = 0;
             this.btnI8.UseVisualStyleBackColor = true;
             // 
             // btnI2
             // 
-            this.btnI2.Location = new System.Drawing.Point(103, 48);
-            this.btnI2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnI2.Location = new System.Drawing.Point(90, 36);
             this.btnI2.Name = "btnI2";
-            this.btnI2.Size = new System.Drawing.Size(86, 100);
+            this.btnI2.Size = new System.Drawing.Size(75, 75);
             this.btnI2.TabIndex = 0;
             this.btnI2.UseVisualStyleBackColor = true;
             // 
             // btnI0
             // 
-            this.btnI0.Location = new System.Drawing.Point(195, 264);
-            this.btnI0.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnI0.Location = new System.Drawing.Point(171, 198);
             this.btnI0.Name = "btnI0";
-            this.btnI0.Size = new System.Drawing.Size(86, 100);
+            this.btnI0.Size = new System.Drawing.Size(75, 75);
             this.btnI0.TabIndex = 0;
             this.btnI0.UseVisualStyleBackColor = true;
             // 
             // btnI6
             // 
-            this.btnI6.Location = new System.Drawing.Point(195, 156);
-            this.btnI6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnI6.Location = new System.Drawing.Point(171, 117);
             this.btnI6.Name = "btnI6";
-            this.btnI6.Size = new System.Drawing.Size(86, 100);
+            this.btnI6.Size = new System.Drawing.Size(75, 75);
             this.btnI6.TabIndex = 0;
             this.btnI6.UseVisualStyleBackColor = true;
             // 
             // btnI3
             // 
-            this.btnI3.Location = new System.Drawing.Point(195, 48);
-            this.btnI3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnI3.Location = new System.Drawing.Point(171, 36);
             this.btnI3.Name = "btnI3";
-            this.btnI3.Size = new System.Drawing.Size(86, 100);
+            this.btnI3.Size = new System.Drawing.Size(75, 75);
             this.btnI3.TabIndex = 0;
             this.btnI3.UseVisualStyleBackColor = true;
             // 
             // btnI5
             // 
-            this.btnI5.Location = new System.Drawing.Point(103, 156);
-            this.btnI5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnI5.Location = new System.Drawing.Point(90, 117);
             this.btnI5.Name = "btnI5";
-            this.btnI5.Size = new System.Drawing.Size(86, 100);
+            this.btnI5.Size = new System.Drawing.Size(75, 75);
             this.btnI5.TabIndex = 0;
             this.btnI5.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnEmbaralhar
             // 
-            this.button1.Location = new System.Drawing.Point(85, 423);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(115, 31);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Embaralhar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Embaralhar);
+            this.btnEmbaralhar.Location = new System.Drawing.Point(74, 317);
+            this.btnEmbaralhar.Name = "btnEmbaralhar";
+            this.btnEmbaralhar.Size = new System.Drawing.Size(101, 23);
+            this.btnEmbaralhar.TabIndex = 1;
+            this.btnEmbaralhar.Text = "Embaralhar";
+            this.btnEmbaralhar.UseVisualStyleBackColor = true;
+            this.btnEmbaralhar.Click += new System.EventHandler(this.Embaralhar);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(103, 16);
+            this.label2.Location = new System.Drawing.Point(90, 12);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 20);
+            this.label2.Size = new System.Drawing.Size(76, 15);
             this.label2.TabIndex = 13;
             this.label2.Text = "Estado Inicial";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(743, 16);
+            this.label3.Location = new System.Drawing.Point(650, 12);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 20);
+            this.label3.Size = new System.Drawing.Size(70, 15);
             this.label3.TabIndex = 23;
             this.label3.Text = "Estado Final";
             // 
             // btnF0
             // 
-            this.btnF0.Location = new System.Drawing.Point(835, 264);
-            this.btnF0.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnF0.Location = new System.Drawing.Point(731, 198);
             this.btnF0.Name = "btnF0";
-            this.btnF0.Size = new System.Drawing.Size(86, 100);
+            this.btnF0.Size = new System.Drawing.Size(75, 75);
             this.btnF0.TabIndex = 14;
             this.btnF0.UseVisualStyleBackColor = true;
             // 
             // btnF8
             // 
-            this.btnF8.Location = new System.Drawing.Point(743, 264);
-            this.btnF8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnF8.Location = new System.Drawing.Point(650, 198);
             this.btnF8.Name = "btnF8";
-            this.btnF8.Size = new System.Drawing.Size(86, 100);
+            this.btnF8.Size = new System.Drawing.Size(75, 75);
             this.btnF8.TabIndex = 15;
             this.btnF8.UseVisualStyleBackColor = true;
             // 
             // btnF7
             // 
-            this.btnF7.Location = new System.Drawing.Point(650, 264);
-            this.btnF7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnF7.Location = new System.Drawing.Point(569, 198);
             this.btnF7.Name = "btnF7";
-            this.btnF7.Size = new System.Drawing.Size(86, 100);
+            this.btnF7.Size = new System.Drawing.Size(75, 75);
             this.btnF7.TabIndex = 16;
             this.btnF7.UseVisualStyleBackColor = true;
             // 
             // btnF3
             // 
-            this.btnF3.Location = new System.Drawing.Point(835, 48);
-            this.btnF3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnF3.Location = new System.Drawing.Point(731, 36);
             this.btnF3.Name = "btnF3";
-            this.btnF3.Size = new System.Drawing.Size(86, 100);
+            this.btnF3.Size = new System.Drawing.Size(75, 75);
             this.btnF3.TabIndex = 17;
             this.btnF3.UseVisualStyleBackColor = true;
             // 
             // btnF5
             // 
-            this.btnF5.Location = new System.Drawing.Point(743, 156);
-            this.btnF5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnF5.Location = new System.Drawing.Point(650, 117);
             this.btnF5.Name = "btnF5";
-            this.btnF5.Size = new System.Drawing.Size(86, 100);
+            this.btnF5.Size = new System.Drawing.Size(75, 75);
             this.btnF5.TabIndex = 18;
             this.btnF5.UseVisualStyleBackColor = true;
             // 
             // btnF6
             // 
-            this.btnF6.Location = new System.Drawing.Point(835, 156);
-            this.btnF6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnF6.Location = new System.Drawing.Point(731, 117);
             this.btnF6.Name = "btnF6";
-            this.btnF6.Size = new System.Drawing.Size(86, 100);
+            this.btnF6.Size = new System.Drawing.Size(75, 75);
             this.btnF6.TabIndex = 19;
             this.btnF6.UseVisualStyleBackColor = true;
             // 
             // btnF2
             // 
-            this.btnF2.Location = new System.Drawing.Point(743, 48);
-            this.btnF2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnF2.Location = new System.Drawing.Point(650, 36);
             this.btnF2.Name = "btnF2";
-            this.btnF2.Size = new System.Drawing.Size(86, 100);
+            this.btnF2.Size = new System.Drawing.Size(75, 75);
             this.btnF2.TabIndex = 20;
             this.btnF2.UseVisualStyleBackColor = true;
             // 
             // btnF4
             // 
-            this.btnF4.Location = new System.Drawing.Point(650, 156);
-            this.btnF4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnF4.Location = new System.Drawing.Point(569, 117);
             this.btnF4.Name = "btnF4";
-            this.btnF4.Size = new System.Drawing.Size(86, 100);
+            this.btnF4.Size = new System.Drawing.Size(75, 75);
             this.btnF4.TabIndex = 21;
             this.btnF4.UseVisualStyleBackColor = true;
             // 
             // btnF1
             // 
-            this.btnF1.Location = new System.Drawing.Point(650, 48);
-            this.btnF1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnF1.Location = new System.Drawing.Point(569, 36);
             this.btnF1.Name = "btnF1";
-            this.btnF1.Size = new System.Drawing.Size(86, 100);
+            this.btnF1.Size = new System.Drawing.Size(75, 75);
             this.btnF1.TabIndex = 22;
             this.btnF1.UseVisualStyleBackColor = true;
             // 
             // btnEF0
             // 
-            this.btnEF0.Location = new System.Drawing.Point(505, 180);
-            this.btnEF0.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnEF0.Location = new System.Drawing.Point(442, 135);
             this.btnEF0.Name = "btnEF0";
-            this.btnEF0.Size = new System.Drawing.Size(53, 56);
+            this.btnEF0.Size = new System.Drawing.Size(46, 42);
             this.btnEF0.TabIndex = 33;
             this.btnEF0.Text = "0";
             this.btnEF0.UseVisualStyleBackColor = true;
@@ -269,10 +248,9 @@ namespace Puzzle
             // 
             // btnEF8
             // 
-            this.btnEF8.Location = new System.Drawing.Point(446, 180);
-            this.btnEF8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnEF8.Location = new System.Drawing.Point(390, 135);
             this.btnEF8.Name = "btnEF8";
-            this.btnEF8.Size = new System.Drawing.Size(53, 56);
+            this.btnEF8.Size = new System.Drawing.Size(46, 42);
             this.btnEF8.TabIndex = 32;
             this.btnEF8.Text = "8";
             this.btnEF8.UseVisualStyleBackColor = true;
@@ -280,10 +258,9 @@ namespace Puzzle
             // 
             // btnEF7
             // 
-            this.btnEF7.Location = new System.Drawing.Point(387, 180);
-            this.btnEF7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnEF7.Location = new System.Drawing.Point(339, 135);
             this.btnEF7.Name = "btnEF7";
-            this.btnEF7.Size = new System.Drawing.Size(53, 56);
+            this.btnEF7.Size = new System.Drawing.Size(46, 42);
             this.btnEF7.TabIndex = 31;
             this.btnEF7.Text = "7";
             this.btnEF7.UseVisualStyleBackColor = true;
@@ -291,10 +268,9 @@ namespace Puzzle
             // 
             // btnEF6
             // 
-            this.btnEF6.Location = new System.Drawing.Point(505, 116);
-            this.btnEF6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnEF6.Location = new System.Drawing.Point(442, 87);
             this.btnEF6.Name = "btnEF6";
-            this.btnEF6.Size = new System.Drawing.Size(53, 56);
+            this.btnEF6.Size = new System.Drawing.Size(46, 42);
             this.btnEF6.TabIndex = 30;
             this.btnEF6.Text = "6";
             this.btnEF6.UseVisualStyleBackColor = true;
@@ -302,10 +278,9 @@ namespace Puzzle
             // 
             // btnEF5
             // 
-            this.btnEF5.Location = new System.Drawing.Point(446, 116);
-            this.btnEF5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnEF5.Location = new System.Drawing.Point(390, 87);
             this.btnEF5.Name = "btnEF5";
-            this.btnEF5.Size = new System.Drawing.Size(53, 56);
+            this.btnEF5.Size = new System.Drawing.Size(46, 42);
             this.btnEF5.TabIndex = 29;
             this.btnEF5.Text = "5";
             this.btnEF5.UseVisualStyleBackColor = true;
@@ -313,10 +288,9 @@ namespace Puzzle
             // 
             // btnEF4
             // 
-            this.btnEF4.Location = new System.Drawing.Point(387, 116);
-            this.btnEF4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnEF4.Location = new System.Drawing.Point(339, 87);
             this.btnEF4.Name = "btnEF4";
-            this.btnEF4.Size = new System.Drawing.Size(53, 56);
+            this.btnEF4.Size = new System.Drawing.Size(46, 42);
             this.btnEF4.TabIndex = 28;
             this.btnEF4.Text = "4";
             this.btnEF4.UseVisualStyleBackColor = true;
@@ -324,10 +298,9 @@ namespace Puzzle
             // 
             // btnEF3
             // 
-            this.btnEF3.Location = new System.Drawing.Point(505, 52);
-            this.btnEF3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnEF3.Location = new System.Drawing.Point(442, 39);
             this.btnEF3.Name = "btnEF3";
-            this.btnEF3.Size = new System.Drawing.Size(53, 56);
+            this.btnEF3.Size = new System.Drawing.Size(46, 42);
             this.btnEF3.TabIndex = 27;
             this.btnEF3.Text = "3";
             this.btnEF3.UseVisualStyleBackColor = true;
@@ -335,10 +308,9 @@ namespace Puzzle
             // 
             // btnEF2
             // 
-            this.btnEF2.Location = new System.Drawing.Point(446, 52);
-            this.btnEF2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnEF2.Location = new System.Drawing.Point(390, 39);
             this.btnEF2.Name = "btnEF2";
-            this.btnEF2.Size = new System.Drawing.Size(53, 56);
+            this.btnEF2.Size = new System.Drawing.Size(46, 42);
             this.btnEF2.TabIndex = 26;
             this.btnEF2.Text = "2";
             this.btnEF2.UseVisualStyleBackColor = true;
@@ -346,10 +318,9 @@ namespace Puzzle
             // 
             // btnEF1
             // 
-            this.btnEF1.Location = new System.Drawing.Point(387, 52);
-            this.btnEF1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnEF1.Location = new System.Drawing.Point(339, 39);
             this.btnEF1.Name = "btnEF1";
-            this.btnEF1.Size = new System.Drawing.Size(53, 56);
+            this.btnEF1.Size = new System.Drawing.Size(46, 42);
             this.btnEF1.TabIndex = 25;
             this.btnEF1.Text = "1";
             this.btnEF1.UseVisualStyleBackColor = true;
@@ -358,28 +329,27 @@ namespace Puzzle
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(385, 16);
+            this.label4.Location = new System.Drawing.Point(337, 12);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(151, 20);
+            this.label4.Size = new System.Drawing.Size(118, 15);
             this.label4.TabIndex = 24;
             this.label4.Text = "Defina o estado final:";
             // 
-            // button11
+            // btnDefinirEF
             // 
-            this.button11.Location = new System.Drawing.Point(727, 427);
-            this.button11.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(115, 31);
-            this.button11.TabIndex = 34;
-            this.button11.Text = "Resolver";
-            this.button11.UseVisualStyleBackColor = true;
+            this.btnDefinirEF.Location = new System.Drawing.Point(627, 288);
+            this.btnDefinirEF.Name = "btnDefinirEF";
+            this.btnDefinirEF.Size = new System.Drawing.Size(123, 23);
+            this.btnDefinirEF.TabIndex = 34;
+            this.btnDefinirEF.Text = "Definir Estado Final";
+            this.btnDefinirEF.UseVisualStyleBackColor = true;
+            this.btnDefinirEF.Click += new System.EventHandler(this.btnDefinirEF_Click);
             // 
             // btnRestartEF
             // 
-            this.btnRestartEF.Location = new System.Drawing.Point(396, 264);
-            this.btnRestartEF.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnRestartEF.Location = new System.Drawing.Point(346, 198);
             this.btnRestartEF.Name = "btnRestartEF";
-            this.btnRestartEF.Size = new System.Drawing.Size(162, 31);
+            this.btnRestartEF.Size = new System.Drawing.Size(142, 23);
             this.btnRestartEF.TabIndex = 35;
             this.btnRestartEF.Text = "Reiniciar Estado Final";
             this.btnRestartEF.UseVisualStyleBackColor = true;
@@ -387,11 +357,11 @@ namespace Puzzle
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1001, 600);
+            this.ClientSize = new System.Drawing.Size(876, 450);
             this.Controls.Add(this.btnRestartEF);
-            this.Controls.Add(this.button11);
+            this.Controls.Add(this.btnDefinirEF);
             this.Controls.Add(this.btnEF0);
             this.Controls.Add(this.btnEF8);
             this.Controls.Add(this.btnEF7);
@@ -413,7 +383,7 @@ namespace Puzzle
             this.Controls.Add(this.btnF4);
             this.Controls.Add(this.btnF1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnEmbaralhar);
             this.Controls.Add(this.btnI0);
             this.Controls.Add(this.btnI8);
             this.Controls.Add(this.btnI7);
@@ -423,7 +393,6 @@ namespace Puzzle
             this.Controls.Add(this.btnI2);
             this.Controls.Add(this.btnI4);
             this.Controls.Add(this.btnI1);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -442,7 +411,7 @@ namespace Puzzle
         private System.Windows.Forms.Button btnI6;
         private System.Windows.Forms.Button btnI3;
         private System.Windows.Forms.Button btnI5;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnEmbaralhar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnF0;
@@ -464,7 +433,7 @@ namespace Puzzle
         private System.Windows.Forms.Button btnEF2;
         private System.Windows.Forms.Button btnEF1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button btnDefinirEF;
         private System.Windows.Forms.Button btnRestartEF;
     }
 }
