@@ -144,7 +144,7 @@ namespace Puzzle
             this.btnEmbaralhar.TabIndex = 1;
             this.btnEmbaralhar.Text = "Embaralhar";
             this.btnEmbaralhar.UseVisualStyleBackColor = true;
-            this.btnEmbaralhar.Click += new System.EventHandler(this.Embaralhar);
+            this.btnEmbaralhar.Click += new System.EventHandler(this.btnEmbaralhar_Click);
             // 
             // label2
             // 

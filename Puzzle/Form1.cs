@@ -23,13 +23,13 @@ namespace Puzzle
 
         private void EmbaralharTudo()
         {
-            int repeticoes = 20, linha, coluna, aux;
+            int repeticoes = 20000, linha, coluna, aux;
             for (int num = 0; num < repeticoes; num++)
             {
                 (linha, coluna) = procurarVazio();
 
                 Random numeroAleatorio = new Random();
-                int direcao = numeroAleatorio.Next(1, 4);
+                int direcao = numeroAleatorio.Next(1, 5);
                 /// 1 - Esquerda
                 /// 2 - Cima
                 /// 3 - Direita
@@ -249,6 +249,11 @@ namespace Puzzle
             MatrizFinal[2, 0] = Convert.ToInt32(btnF7.Text);
             MatrizFinal[2, 1] = Convert.ToInt32(btnF8.Text);
             MatrizFinal[2, 2] = Convert.ToInt32(btnF0.Text);
+        }
+
+        private void btnEmbaralhar_Click(object sender, EventArgs e)
+        {
+            EmbaralharTudo();
         }
     }
 }
