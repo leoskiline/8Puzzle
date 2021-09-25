@@ -6,27 +6,32 @@ using System.Threading.Tasks;
 
 namespace Puzzle
 {
+    public class Elemento
+    {
+        public int[,] matriz = new int[3, 3];
+        public int custoTotal;
+        public Elemento prox;
+
+        public Elemento(){}
+    }
+
     public class FilaPrioridade
     {
-        public class Elemento
-        {
-            public int[,] matriz = new int[3, 3];
-            public int custo;
-            public int distHeuristica;
-            public Elemento prox;
-
-            public Elemento()
-            {
-
-            }
-        }
-
-        public static Elemento newNode(int[,] matriz, int custo, int dist)
+        
+        public static Elemento newNode(int[,] matriz, int custoTotal)
         {
             Elemento temp = new Elemento();
             temp.matriz = matriz;
-            temp.custo = custo;
-            temp.distHeuristica = dist;
+            temp.custoTotal = custoTotal;
+            temp.prox = null;
+            return temp;
+        }
+
+        public static Elemento newNode()
+        {
+            Elemento temp = new Elemento();
+            temp.matriz = null;
+            temp.custoTotal = 0;
             temp.prox = null;
             return temp;
         }
@@ -36,32 +41,49 @@ namespace Puzzle
             return (cabeça).matriz;
         }
 
-        public static Elemento pop(Elemento cabeça)
+        public static Elemento dequeue(Elemento cabeça)
         {
             (cabeça) = (cabeça).prox;
             return cabeça;
         }
 
-        public static Elemento push(Elemento cabeça,
-                                int[,] matriz, int custo, int dist)
+        public static Elemento enqueue(Elemento cabeça,
+                                int[,] matriz, int custoTotal)
         {
-            Elemento start = (cabeça);
-            Elemento aux = newNode(matriz, custo, dist);
-            if ((cabeça).distHeuristica > dist)
+            Elemento novoNo = newNode();
+            Elemento aux;
+            if(novoNo != null)
             {
-                aux.prox = cabeça;
-                (cabeça) = aux;
-            }
-            else
-            {
-                while (start.prox != null &&
-                    start.prox.distHeuristica < dist)
+                novoNo.matriz = matriz;
+                novoNo.custoTotal = custoTotal;
+                novoNo.prox = null;
+                if(cabeça == null)
                 {
-                    start = start.prox;
+                    cabeça = novoNo;
                 }
-                aux.prox = start.prox;
-                start.prox = aux;
+                else
+                {
+                    aux = cabeça;
+                    Elemento ant = aux; 
+                    while(aux.prox != null && aux.custoTotal <= custoTotal)
+                    {
+                        ant = aux;
+                        aux = aux.prox;
+                    }
+                    if(ant == aux)
+                    {
+                        cabeça.prox = novoNo;
+                        novoNo.prox = null;
+                    }
+                    else
+                    {
+                        ant.prox = novoNo;
+                        novoNo.prox = aux;
+                    }
+                    
+                }
             }
+            
             return cabeça;
         }
         public static bool isEmpty(Elemento cabeça)

@@ -28,8 +28,14 @@ namespace Puzzle
 
         private void EmbaralharTudo()
         {
-            int repeticoes = 20000, linha, coluna, aux;
-            MatrizEmbaralhada = MatrizFinal;
+            int repeticoes = 20, linha, coluna, aux;
+            for(int i = 0;i < 3;i++)
+            {
+                for(int j = 0;j < 3;j++)
+                {
+                    MatrizEmbaralhada[i, j] = MatrizFinal[i, j];
+                }
+            }
             for (int num = 0; num < repeticoes; num++)
             {
                 (linha, coluna) = procurarVazio(MatrizEmbaralhada);
@@ -295,10 +301,10 @@ namespace Puzzle
             distHeuristica = calcularHeuristica();
             
             // Cria novo elemento matriz
-            Elemento elemento = newNode(MatrizEmbaralhada, custo, distHeuristica);
+            Elemento elemento = newNode(MatrizEmbaralhada, custo+distHeuristica);
 
             // Insere elemento matriz criado na fila
-            elemento = push(elemento, MatrizEmbaralhada, custo, distHeuristica);
+            elemento = enqueue(elemento, MatrizEmbaralhada, custo + distHeuristica);
 
             while (!isEmpty(elemento)) // enquanto a fila não estiver vazia
             {
@@ -328,10 +334,10 @@ namespace Puzzle
                         distHeuristica = calcularHeuristica();
 
                         // Criar novo elemento a partir do novo estado gerado
-                        elemento = newNode(copiaMatriz, custo, distHeuristica);
+                        elemento = newNode(copiaMatriz, custo + distHeuristica);
 
                         // Insere o novo elemento matriz na fila de prioridade
-                        elemento = push(elemento, copiaMatriz, custo, distHeuristica);
+                        elemento = enqueue(elemento, copiaMatriz, custo + distHeuristica);
                     }
                 }
 
@@ -352,8 +358,8 @@ namespace Puzzle
                         distHeuristica = calcularHeuristica();
 
                         //Criar novo elemento e inserir na fila de prioridade
-                        elemento = newNode(copiaMatriz, custo, distHeuristica);
-                        elemento = push(elemento, copiaMatriz, custo, distHeuristica);
+                        elemento = newNode(copiaMatriz, custo + distHeuristica);
+                        elemento = enqueue(elemento, copiaMatriz, custo+distHeuristica);
                     }
                 }
 
@@ -374,8 +380,8 @@ namespace Puzzle
                         distHeuristica = calcularHeuristica();
 
                         //Criar novo elemento e inserir na fila de prioridade
-                        elemento = newNode(copiaMatriz, custo, distHeuristica);
-                        elemento = push(elemento, copiaMatriz, custo, distHeuristica);
+                        elemento = newNode(copiaMatriz, custo + distHeuristica);
+                        elemento = enqueue(elemento, copiaMatriz, custo+distHeuristica);
                     }
                 }
 
@@ -396,12 +402,12 @@ namespace Puzzle
                         distHeuristica = calcularHeuristica();
 
                         //Criar novo elemento e inserir na fila de prioridade
-                        elemento = newNode(copiaMatriz, custo, distHeuristica);
-                        elemento = push(elemento, copiaMatriz, custo, distHeuristica);
+                        elemento = newNode(copiaMatriz, custo + distHeuristica);
+                        elemento = enqueue(elemento, copiaMatriz, custo+distHeuristica);
                     }
                 }
                 // Retida elemento matriz
-                elemento = pop(elemento);
+                elemento = dequeue(elemento);
                 // Incremeta o custo acumulado
                 custo++;
             }
