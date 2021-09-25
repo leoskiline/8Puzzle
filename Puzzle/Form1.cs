@@ -7,14 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Puzzle.FilaPrioridade;
 
 namespace Puzzle
 {
     public partial class Form1 : Form
     {
-        int[,] MatrizInicial = new int[3, 3];
+        int[,] MatrizEmbaralhada = new int[3, 3];
         int[,] MatrizFinal = new int[3, 3];
         int countFinal = 0;
+
+        List<int[,]> listaEstadosUsados = new List<int[,]>();
+
+        FilaPrioridade Fila = new FilaPrioridade();
 
         public Form1()
         {
@@ -24,9 +29,10 @@ namespace Puzzle
         private void EmbaralharTudo()
         {
             int repeticoes = 20000, linha, coluna, aux;
+            MatrizEmbaralhada = MatrizFinal;
             for (int num = 0; num < repeticoes; num++)
             {
-                (linha, coluna) = procurarVazio();
+                (linha, coluna) = procurarVazio(MatrizEmbaralhada);
 
                 Random numeroAleatorio = new Random();
                 int direcao = numeroAleatorio.Next(1, 5);
@@ -39,33 +45,33 @@ namespace Puzzle
                     case 1:
                         if (coluna > 0)
                         {
-                            aux = MatrizFinal[linha, coluna];
-                            MatrizFinal[linha, coluna] = MatrizFinal[linha, coluna - 1];
-                            MatrizFinal[linha, coluna - 1] = aux;
+                            aux = MatrizEmbaralhada[linha, coluna];
+                            MatrizEmbaralhada[linha, coluna] = MatrizEmbaralhada[linha, coluna - 1];
+                            MatrizEmbaralhada[linha, coluna - 1] = aux;
                         }
                         break;
                     case 2:
                         if (linha > 0)
                         {
-                            aux = MatrizFinal[linha, coluna];
-                            MatrizFinal[linha, coluna] = MatrizFinal[linha - 1, coluna];
-                            MatrizFinal[linha - 1, coluna] = aux;
+                            aux = MatrizEmbaralhada[linha, coluna];
+                            MatrizEmbaralhada[linha, coluna] = MatrizEmbaralhada[linha - 1, coluna];
+                            MatrizEmbaralhada[linha - 1, coluna] = aux;
                         }
                         break;
                     case 3:
                         if (coluna < 2)
                         {
-                            aux = MatrizFinal[linha, coluna];
-                            MatrizFinal[linha, coluna] = MatrizFinal[linha, coluna + 1];
-                            MatrizFinal[linha, coluna + 1] = aux;
+                            aux = MatrizEmbaralhada[linha, coluna];
+                            MatrizEmbaralhada[linha, coluna] = MatrizEmbaralhada[linha, coluna + 1];
+                            MatrizEmbaralhada[linha, coluna + 1] = aux;
                         }
                         break;
                     case 4:
                         if (linha < 2)
                         {
-                            aux = MatrizFinal[linha, coluna];
-                            MatrizFinal[linha, coluna] = MatrizFinal[linha + 1, coluna];
-                            MatrizFinal[linha + 1, coluna] = aux;
+                            aux = MatrizEmbaralhada[linha, coluna];
+                            MatrizEmbaralhada[linha, coluna] = MatrizEmbaralhada[linha + 1, coluna];
+                            MatrizEmbaralhada[linha + 1, coluna] = aux;
                         }
                         break;
                 }
@@ -73,13 +79,13 @@ namespace Puzzle
             popularBotoes();
         }
 
-        private (int, int) procurarVazio()
+        private (int, int) procurarVazio(int[,] matriz)
         {
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    if (MatrizFinal[i, j] == 0)
+                    if (matriz[i, j] == 0)
                     {
                         return (i, j);
                     }
@@ -88,20 +94,18 @@ namespace Puzzle
             return (2, 2);
         }
 
-
         private void popularBotoes()
         {
-            btnI1.Text = MatrizFinal[0, 0].ToString();
-            btnI2.Text = MatrizFinal[0, 1].ToString();
-            btnI3.Text = MatrizFinal[0, 2].ToString();
-            btnI4.Text = MatrizFinal[1, 0].ToString();
-            btnI5.Text = MatrizFinal[1, 1].ToString();
-            btnI6.Text = MatrizFinal[1, 2].ToString();
-            btnI7.Text = MatrizFinal[2, 0].ToString();
-            btnI8.Text = MatrizFinal[2, 1].ToString();
-            btnI0.Text = MatrizFinal[2, 2].ToString();
+            btnI1.Text = MatrizEmbaralhada[0, 0].ToString();
+            btnI2.Text = MatrizEmbaralhada[0, 1].ToString();
+            btnI3.Text = MatrizEmbaralhada[0, 2].ToString();
+            btnI4.Text = MatrizEmbaralhada[1, 0].ToString();
+            btnI5.Text = MatrizEmbaralhada[1, 1].ToString();
+            btnI6.Text = MatrizEmbaralhada[1, 2].ToString();
+            btnI7.Text = MatrizEmbaralhada[2, 0].ToString();
+            btnI8.Text = MatrizEmbaralhada[2, 1].ToString();
+            btnI0.Text = MatrizEmbaralhada[2, 2].ToString();
         }
-
 
         private void preencherFinal(Button btn)
         {
@@ -237,7 +241,6 @@ namespace Puzzle
             btnF8.Text = "";
         }
 
-
         private void btnDefinirEF_Click(object sender, EventArgs e)
         {
             MatrizFinal[0, 0] = Convert.ToInt32(btnF1.Text);
@@ -254,6 +257,168 @@ namespace Puzzle
         private void btnEmbaralhar_Click(object sender, EventArgs e)
         {
             EmbaralharTudo();
+        }
+
+        private bool estadoUtilizado(int[,] matriz)
+        {
+            foreach (var usado in listaEstadosUsados)
+            {
+                if (usado == matriz) // Matriz já usada ?
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private int calcularHeuristica()
+        {
+            int heuristica = 0;
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 3; j++)
+                {
+                    if (MatrizEmbaralhada[i, j] != MatrizFinal[i ,j])
+                    {
+                        heuristica++;
+                    }
+                    
+                }
+            return heuristica;
+        }
+
+        private void ResolverAStar()
+        {
+            //Declarações...
+            int linha, coluna, aux, distHeuristica, custo = 0;
+
+            // Calcular distância Heurística
+            distHeuristica = calcularHeuristica();
+            
+            // Cria novo elemento matriz
+            Elemento elemento = newNode(MatrizEmbaralhada, custo, distHeuristica);
+
+            // Insere elemento matriz criado na fila
+            elemento = push(elemento, MatrizEmbaralhada, custo, distHeuristica);
+
+            while (!isEmpty(elemento)) // enquanto a fila não estiver vazia
+            {
+                // Procura o 0 nesse elemento matriz retirado da fila e atribui as coordenadas
+                (linha, coluna) = procurarVazio(elemento.matriz);
+
+                // Verifica as possíveis posições de movimentação do 0
+                // ↓↓↓↓
+
+                if (linha > 0) // Pode ir para cima ?
+                {
+                    // Faz uma cópia do elemento matriz
+                    int[,] copiaMatriz = elemento.matriz;
+
+                    // Trocar 0 para a posição permitida
+                    aux = copiaMatriz[linha, coluna];
+                    copiaMatriz[linha, coluna] = copiaMatriz[linha - 1, coluna];
+                    copiaMatriz[linha - 1, coluna] = aux;
+
+                    // Verificar se o estado da cópia gerada já foi usado
+                    if (!estadoUtilizado(copiaMatriz)) // se houver, ignora...
+                    {
+                        // Insere na lista de usados
+                        listaEstadosUsados.Add(copiaMatriz);
+
+                        // Calcula distância
+                        distHeuristica = calcularHeuristica();
+
+                        // Criar novo elemento a partir do novo estado gerado
+                        elemento = newNode(copiaMatriz, custo, distHeuristica);
+
+                        // Insere o novo elemento matriz na fila de prioridade
+                        elemento = push(elemento, copiaMatriz, custo, distHeuristica);
+                    }
+                }
+
+                if (linha < 2) // Pode ir para baixo ?
+                {
+                    int[,] copiaMatriz = elemento.matriz;
+
+                    aux = copiaMatriz[linha, coluna];
+                    copiaMatriz[linha, coluna] = copiaMatriz[linha + 1, coluna];
+                    copiaMatriz[linha + 1, coluna] = aux;
+
+                    if (!estadoUtilizado(copiaMatriz)) // se não houver estado usado
+                    {
+                        //insere na lista de usados
+                        listaEstadosUsados.Add(copiaMatriz);
+
+                        //calcula distância
+                        distHeuristica = calcularHeuristica();
+
+                        //Criar novo elemento e inserir na fila de prioridade
+                        elemento = newNode(copiaMatriz, custo, distHeuristica);
+                        elemento = push(elemento, copiaMatriz, custo, distHeuristica);
+                    }
+                }
+
+                if (coluna > 0) // Pode ir para esquerda ?
+                {
+                    int[,] copiaMatriz = elemento.matriz;
+
+                    aux = copiaMatriz[linha, coluna];
+                    copiaMatriz[linha, coluna] = copiaMatriz[linha, coluna - 1];
+                    copiaMatriz[linha, coluna - 1] = aux;
+
+                    if (!estadoUtilizado(copiaMatriz)) // se não houver estado usado
+                    {
+                        //insere na lista de usados
+                        listaEstadosUsados.Add(copiaMatriz);
+
+                        //calcula distância
+                        distHeuristica = calcularHeuristica();
+
+                        //Criar novo elemento e inserir na fila de prioridade
+                        elemento = newNode(copiaMatriz, custo, distHeuristica);
+                        elemento = push(elemento, copiaMatriz, custo, distHeuristica);
+                    }
+                }
+
+                if (coluna < 2) // Pode ir para direita ?
+                {
+                    int[,] copiaMatriz = elemento.matriz;
+
+                    aux = copiaMatriz[linha, coluna];
+                    copiaMatriz[linha, coluna] = copiaMatriz[linha, coluna + 1];
+                    copiaMatriz[linha, coluna + 1] = aux;
+
+                    if (!estadoUtilizado(copiaMatriz)) // se não houver estado usado
+                    {
+                        //insere na lista de usados
+                        listaEstadosUsados.Add(copiaMatriz);
+
+                        //calcula distância
+                        distHeuristica = calcularHeuristica();
+
+                        //Criar novo elemento e inserir na fila de prioridade
+                        elemento = newNode(copiaMatriz, custo, distHeuristica);
+                        elemento = push(elemento, copiaMatriz, custo, distHeuristica);
+                    }
+                }
+                // Retida elemento matriz
+                elemento = pop(elemento);
+                // Incremeta o custo acumulado
+                custo++;
+            }
+
+            popularBotoes();
+        }
+
+        private void btnResolver_Click(object sender, EventArgs e)
+        {
+            if (cbMetodo.SelectedIndex == 1) // A* ou (A Star)
+            {
+                ResolverAStar();
+            }
+            else
+            {
+
+            }
         }
     }
 }
