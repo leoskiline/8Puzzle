@@ -52,38 +52,37 @@ namespace Puzzle
         {
             Elemento novoNo = newNode();
             Elemento aux;
-            if(novoNo != null)
+           
+            novoNo.matriz = matriz;
+            novoNo.custoTotal = custoTotal;
+            novoNo.prox = null;
+            if(cabeça == null)
             {
-                novoNo.matriz = matriz;
-                novoNo.custoTotal = custoTotal;
-                novoNo.prox = null;
-                if(cabeça == null)
+                cabeça = novoNo;
+            }
+            else
+            {
+                aux = cabeça;
+                Elemento ant = aux;
+
+                while(aux != null && aux.custoTotal <= custoTotal)
                 {
-                    cabeça = novoNo;
+                    ant = aux;
+                    aux = aux.prox;
                 }
+
+                if(ant == aux)
+                {
+                    cabeça.prox = novoNo;
+                    novoNo.prox = aux;
+                }
+
                 else
                 {
-                    aux = cabeça;
-                    Elemento ant = aux; 
-                    while(aux.prox != null && aux.custoTotal <= custoTotal)
-                    {
-                        ant = aux;
-                        aux = aux.prox;
-                    }
-                    if(ant == aux)
-                    {
-                        cabeça.prox = novoNo;
-                        novoNo.prox = null;
-                    }
-                    else
-                    {
-                        ant.prox = novoNo;
-                        novoNo.prox = aux;
-                    }
-                    
+                    ant.prox = novoNo;
+                    novoNo.prox = aux;
                 }
             }
-            
             return cabeça;
         }
         public static bool isEmpty(Elemento cabeça)

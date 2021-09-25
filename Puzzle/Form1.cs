@@ -28,7 +28,7 @@ namespace Puzzle
 
         private void EmbaralharTudo()
         {
-            int repeticoes = 20, linha, coluna, aux;
+            int repeticoes = 3, linha, coluna, aux;
             for(int i = 0;i < 3;i++)
             {
                 for(int j = 0;j < 3;j++)
@@ -277,13 +277,13 @@ namespace Puzzle
             return false;
         }
 
-        private int calcularHeuristica()
+        private int calcularHeuristica(int[,] matriz)
         {
             int heuristica = 0;
             for (int i = 0; i < 3; i++)
                 for (int j = 0; j < 3; j++)
                 {
-                    if (MatrizEmbaralhada[i, j] != MatrizFinal[i ,j])
+                    if (matriz[i, j] != MatrizFinal[i ,j])
                     {
                         heuristica++;
                     }
@@ -292,22 +292,38 @@ namespace Puzzle
             return heuristica;
         }
 
+        private void copiaMatriz(int [,] mat1, int[,] mat2)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    mat1[i, j] = mat2[i, j];
+                }
+            }
+        }
+
         private void ResolverAStar()
         {
             //Declarações...
             int linha, coluna, aux, distHeuristica, custo = 0;
 
             // Calcular distância Heurística
-            distHeuristica = calcularHeuristica();
+            distHeuristica = calcularHeuristica(MatrizEmbaralhada);
             
             // Cria novo elemento matriz
             Elemento elemento = newNode(MatrizEmbaralhada, custo+distHeuristica);
 
             // Insere elemento matriz criado na fila
-            elemento = enqueue(elemento, MatrizEmbaralhada, custo + distHeuristica);
+            //elemento = enqueue(elemento, MatrizEmbaralhada, custo + distHeuristica);
 
             while (!isEmpty(elemento)) // enquanto a fila não estiver vazia
             {
+                if (elemento.matriz == MatrizFinal)
+                {
+                    break;
+                }
+
                 // Procura o 0 nesse elemento matriz retirado da fila e atribui as coordenadas
                 (linha, coluna) = procurarVazio(elemento.matriz);
 
@@ -317,93 +333,101 @@ namespace Puzzle
                 if (linha > 0) // Pode ir para cima ?
                 {
                     // Faz uma cópia do elemento matriz
-                    int[,] copiaMatriz = elemento.matriz;
+                    int[,] matrizAux = new int[3,3];
+                        
+                    copiaMatriz(matrizAux, elemento.matriz);
 
                     // Trocar 0 para a posição permitida
-                    aux = copiaMatriz[linha, coluna];
-                    copiaMatriz[linha, coluna] = copiaMatriz[linha - 1, coluna];
-                    copiaMatriz[linha - 1, coluna] = aux;
+                    aux = matrizAux[linha, coluna];
+                    matrizAux[linha, coluna] = matrizAux[linha - 1, coluna];
+                    matrizAux[linha - 1, coluna] = aux;
 
                     // Verificar se o estado da cópia gerada já foi usado
-                    if (!estadoUtilizado(copiaMatriz)) // se houver, ignora...
+                    if (!estadoUtilizado(matrizAux)) // se houver, ignora...
                     {
                         // Insere na lista de usados
-                        listaEstadosUsados.Add(copiaMatriz);
+                        listaEstadosUsados.Add(matrizAux);
 
                         // Calcula distância
-                        distHeuristica = calcularHeuristica();
+                        distHeuristica = calcularHeuristica(matrizAux);
 
                         // Criar novo elemento a partir do novo estado gerado
-                        elemento = newNode(copiaMatriz, custo + distHeuristica);
+                        //elemento = newNode(matrizAux, custo + distHeuristica);
 
                         // Insere o novo elemento matriz na fila de prioridade
-                        elemento = enqueue(elemento, copiaMatriz, custo + distHeuristica);
+                        elemento = enqueue(elemento, matrizAux, custo + distHeuristica);
                     }
                 }
 
                 if (linha < 2) // Pode ir para baixo ?
                 {
-                    int[,] copiaMatriz = elemento.matriz;
+                    int[,] matrizAux = new int[3, 3];
 
-                    aux = copiaMatriz[linha, coluna];
-                    copiaMatriz[linha, coluna] = copiaMatriz[linha + 1, coluna];
-                    copiaMatriz[linha + 1, coluna] = aux;
+                    copiaMatriz(matrizAux, elemento.matriz);
 
-                    if (!estadoUtilizado(copiaMatriz)) // se não houver estado usado
+                    aux = matrizAux[linha, coluna];
+                    matrizAux[linha, coluna] = matrizAux[linha + 1, coluna];
+                    matrizAux[linha + 1, coluna] = aux;
+
+                    if (!estadoUtilizado(matrizAux)) // se não houver estado usado
                     {
                         //insere na lista de usados
-                        listaEstadosUsados.Add(copiaMatriz);
+                        listaEstadosUsados.Add(matrizAux);
 
                         //calcula distância
-                        distHeuristica = calcularHeuristica();
+                        distHeuristica = calcularHeuristica(matrizAux);
 
                         //Criar novo elemento e inserir na fila de prioridade
-                        elemento = newNode(copiaMatriz, custo + distHeuristica);
-                        elemento = enqueue(elemento, copiaMatriz, custo+distHeuristica);
+                        //elemento = newNode(matrizAux, custo + distHeuristica);
+                        elemento = enqueue(elemento, matrizAux, custo+distHeuristica);
                     }
                 }
 
                 if (coluna > 0) // Pode ir para esquerda ?
                 {
-                    int[,] copiaMatriz = elemento.matriz;
+                    int[,] matrizAux = new int[3, 3];
 
-                    aux = copiaMatriz[linha, coluna];
-                    copiaMatriz[linha, coluna] = copiaMatriz[linha, coluna - 1];
-                    copiaMatriz[linha, coluna - 1] = aux;
+                    copiaMatriz(matrizAux, elemento.matriz);
 
-                    if (!estadoUtilizado(copiaMatriz)) // se não houver estado usado
+                    aux = matrizAux[linha, coluna];
+                    matrizAux[linha, coluna] = matrizAux[linha, coluna - 1];
+                    matrizAux[linha, coluna - 1] = aux;
+
+                    if (!estadoUtilizado(matrizAux)) // se não houver estado usado
                     {
                         //insere na lista de usados
-                        listaEstadosUsados.Add(copiaMatriz);
+                        listaEstadosUsados.Add(matrizAux);
 
                         //calcula distância
-                        distHeuristica = calcularHeuristica();
+                        distHeuristica = calcularHeuristica(matrizAux);
 
                         //Criar novo elemento e inserir na fila de prioridade
-                        elemento = newNode(copiaMatriz, custo + distHeuristica);
-                        elemento = enqueue(elemento, copiaMatriz, custo+distHeuristica);
+                        //elemento = newNode(matrizAux, custo + distHeuristica);
+                        elemento = enqueue(elemento, matrizAux, custo+distHeuristica);
                     }
                 }
 
                 if (coluna < 2) // Pode ir para direita ?
                 {
-                    int[,] copiaMatriz = elemento.matriz;
+                    int[,] matrizAux = new int[3, 3];
 
-                    aux = copiaMatriz[linha, coluna];
-                    copiaMatriz[linha, coluna] = copiaMatriz[linha, coluna + 1];
-                    copiaMatriz[linha, coluna + 1] = aux;
+                    copiaMatriz(matrizAux, elemento.matriz);
 
-                    if (!estadoUtilizado(copiaMatriz)) // se não houver estado usado
+                    aux = matrizAux[linha, coluna];
+                    matrizAux[linha, coluna] = matrizAux[linha, coluna + 1];
+                    matrizAux[linha, coluna + 1] = aux;
+
+                    if (!estadoUtilizado(matrizAux)) // se não houver estado usado
                     {
                         //insere na lista de usados
-                        listaEstadosUsados.Add(copiaMatriz);
+                        listaEstadosUsados.Add(matrizAux);
 
                         //calcula distância
-                        distHeuristica = calcularHeuristica();
+                        distHeuristica = calcularHeuristica(matrizAux);
 
                         //Criar novo elemento e inserir na fila de prioridade
-                        elemento = newNode(copiaMatriz, custo + distHeuristica);
-                        elemento = enqueue(elemento, copiaMatriz, custo+distHeuristica);
+                        //elemento = newNode(matrizAux, custo + distHeuristica);
+                        elemento = enqueue(elemento, matrizAux, custo+distHeuristica);
                     }
                 }
                 // Retida elemento matriz
