@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Puzzle.FilaPrioridade;
+using static Puzzle.Fila;
 
 namespace Puzzle
 {
@@ -19,7 +21,6 @@ namespace Puzzle
 
         List<int[,]> listaEstadosUsados = new List<int[,]>();
 
-        FilaPrioridade Fila = new FilaPrioridade();
 
         public Form1()
         {
@@ -28,7 +29,7 @@ namespace Puzzle
 
         private void EmbaralharTudo()
         {
-            int repeticoes = 3, linha, coluna, aux;
+            int repeticoes = 32, linha, coluna, aux;
             for(int i = 0;i < 3;i++)
             {
                 for(int j = 0;j < 3;j++)
@@ -82,7 +83,7 @@ namespace Puzzle
                         break;
                 }
             }
-            popularBotoes();
+            popularBotoes(MatrizEmbaralhada);
         }
 
         private (int, int) procurarVazio(int[,] matriz)
@@ -100,17 +101,17 @@ namespace Puzzle
             return (2, 2);
         }
 
-        private void popularBotoes()
+        private void popularBotoes(int[,] matriz)
         {
-            btnI1.Text = MatrizEmbaralhada[0, 0].ToString();
-            btnI2.Text = MatrizEmbaralhada[0, 1].ToString();
-            btnI3.Text = MatrizEmbaralhada[0, 2].ToString();
-            btnI4.Text = MatrizEmbaralhada[1, 0].ToString();
-            btnI5.Text = MatrizEmbaralhada[1, 1].ToString();
-            btnI6.Text = MatrizEmbaralhada[1, 2].ToString();
-            btnI7.Text = MatrizEmbaralhada[2, 0].ToString();
-            btnI8.Text = MatrizEmbaralhada[2, 1].ToString();
-            btnI0.Text = MatrizEmbaralhada[2, 2].ToString();
+            btnI1.Text = matriz[0, 0].ToString();
+            btnI2.Text = matriz[0, 1].ToString();
+            btnI3.Text = matriz[0, 2].ToString();
+            btnI4.Text = matriz[1, 0].ToString();
+            btnI5.Text = matriz[1, 1].ToString();
+            btnI6.Text = matriz[1, 2].ToString();
+            btnI7.Text = matriz[2, 0].ToString();
+            btnI8.Text = matriz[2, 1].ToString();
+            btnI0.Text = matriz[2, 2].ToString();
         }
 
         private void preencherFinal(Button btn)
@@ -269,10 +270,16 @@ namespace Puzzle
         {
             foreach (var usado in listaEstadosUsados)
             {
-                if (usado == matriz) // Matriz já usada ?
+                int count = 0;
+                for (int i = 0; i < 3; i++)
                 {
-                    return true;
+                    for (int j = 0; j < 3; j++)
+                    {
+                        if (matriz[i, j] == usado[i, j])
+                            count++;
+                    }
                 }
+                return count == 9;
             }
             return false;
         }
@@ -303,29 +310,40 @@ namespace Puzzle
             }
         }
 
+        public bool verificaEstadoAtualIgualFinal(int[,] matriz)
+        {
+            bool igual = true;
+            for (int i = 0; i < 3 && igual; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (matriz[i, j] != MatrizFinal[i, j])
+                        igual = false;
+                }
+            }
+            return igual;
+        }
+
         private void ResolverAStar()
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             //Declarações...
             int linha, coluna, aux, distHeuristica, custo = 0;
-
+            listaEstadosUsados.Add(MatrizEmbaralhada);
             // Calcular distância Heurística
             distHeuristica = calcularHeuristica(MatrizEmbaralhada);
-            
-            // Cria novo elemento matriz
-            Elemento elemento = newNode(MatrizEmbaralhada, custo+distHeuristica);
+            Fila fila = new Fila();
 
             // Insere elemento matriz criado na fila
             //elemento = enqueue(elemento, MatrizEmbaralhada, custo + distHeuristica);
-
-            while (!isEmpty(elemento)) // enquanto a fila não estiver vazia
+            No no = new No();
+            no.Estado = MatrizEmbaralhada;
+            no.Prioridade = distHeuristica;
+            while (!verificaEstadoAtualIgualFinal(no.Estado)) // enquanto a fila não estiver vazia
             {
-                if (elemento.matriz == MatrizFinal)
-                {
-                    break;
-                }
-
                 // Procura o 0 nesse elemento matriz retirado da fila e atribui as coordenadas
-                (linha, coluna) = procurarVazio(elemento.matriz);
+                (linha, coluna) = procurarVazio(no.Estado);
 
                 // Verifica as possíveis posições de movimentação do 0
                 // ↓↓↓↓
@@ -335,7 +353,7 @@ namespace Puzzle
                     // Faz uma cópia do elemento matriz
                     int[,] matrizAux = new int[3,3];
                         
-                    copiaMatriz(matrizAux, elemento.matriz);
+                    copiaMatriz(matrizAux, no.Estado);
 
                     // Trocar 0 para a posição permitida
                     aux = matrizAux[linha, coluna];
@@ -355,7 +373,8 @@ namespace Puzzle
                         //elemento = newNode(matrizAux, custo + distHeuristica);
 
                         // Insere o novo elemento matriz na fila de prioridade
-                        elemento = enqueue(elemento, matrizAux, custo + distHeuristica);
+                        //elemento = enqueue(elemento, matrizAux, custo + distHeuristica);
+                        fila.Enqueue(new No(matrizAux,custo+distHeuristica));
                     }
                 }
 
@@ -363,7 +382,7 @@ namespace Puzzle
                 {
                     int[,] matrizAux = new int[3, 3];
 
-                    copiaMatriz(matrizAux, elemento.matriz);
+                    copiaMatriz(matrizAux, no.Estado);
 
                     aux = matrizAux[linha, coluna];
                     matrizAux[linha, coluna] = matrizAux[linha + 1, coluna];
@@ -379,7 +398,8 @@ namespace Puzzle
 
                         //Criar novo elemento e inserir na fila de prioridade
                         //elemento = newNode(matrizAux, custo + distHeuristica);
-                        elemento = enqueue(elemento, matrizAux, custo+distHeuristica);
+                        //elemento = enqueue(elemento, matrizAux, custo+distHeuristica);
+                        fila.Enqueue(new No(matrizAux, custo + distHeuristica));
                     }
                 }
 
@@ -387,7 +407,7 @@ namespace Puzzle
                 {
                     int[,] matrizAux = new int[3, 3];
 
-                    copiaMatriz(matrizAux, elemento.matriz);
+                    copiaMatriz(matrizAux, no.Estado);
 
                     aux = matrizAux[linha, coluna];
                     matrizAux[linha, coluna] = matrizAux[linha, coluna - 1];
@@ -403,7 +423,8 @@ namespace Puzzle
 
                         //Criar novo elemento e inserir na fila de prioridade
                         //elemento = newNode(matrizAux, custo + distHeuristica);
-                        elemento = enqueue(elemento, matrizAux, custo+distHeuristica);
+                        //elemento = enqueue(elemento, matrizAux, custo+distHeuristica);
+                        fila.Enqueue(new No(matrizAux, custo + distHeuristica));
                     }
                 }
 
@@ -411,7 +432,7 @@ namespace Puzzle
                 {
                     int[,] matrizAux = new int[3, 3];
 
-                    copiaMatriz(matrizAux, elemento.matriz);
+                    copiaMatriz(matrizAux, no.Estado);
 
                     aux = matrizAux[linha, coluna];
                     matrizAux[linha, coluna] = matrizAux[linha, coluna + 1];
@@ -427,16 +448,26 @@ namespace Puzzle
 
                         //Criar novo elemento e inserir na fila de prioridade
                         //elemento = newNode(matrizAux, custo + distHeuristica);
-                        elemento = enqueue(elemento, matrizAux, custo+distHeuristica);
+                        //elemento = enqueue(elemento, matrizAux, custo+distHeuristica);
+                        fila.Enqueue(new No(matrizAux, custo + distHeuristica));
                     }
                 }
                 // Retida elemento matriz
-                elemento = dequeue(elemento);
+                no = fila.Dequeue();
+                popularBotoes(no.Estado);
                 // Incremeta o custo acumulado
                 custo++;
+                lblCount.Text = custo.ToString();
             }
+            popularBotoes(no.Estado);
+            stopwatch.Stop();
+            TimeSpan ts = stopwatch.Elapsed;
 
-            popularBotoes();
+            // Format and display the TimeSpan value.
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            lblTempo.Text = elapsedTime;
         }
 
         private void btnResolver_Click(object sender, EventArgs e)

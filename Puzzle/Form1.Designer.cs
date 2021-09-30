@@ -65,6 +65,13 @@ namespace Puzzle
             this.label1 = new System.Windows.Forms.Label();
             this.cbMetodo = new System.Windows.Forms.ComboBox();
             this.btnResolver = new System.Windows.Forms.Button();
+            this.lblCount = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblTempo = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnI1
@@ -390,11 +397,71 @@ namespace Puzzle
             this.btnResolver.UseVisualStyleBackColor = true;
             this.btnResolver.Click += new System.EventHandler(this.btnResolver_Click);
             // 
+            // lblCount
+            // 
+            this.lblCount.AutoSize = true;
+            this.lblCount.Location = new System.Drawing.Point(165, 23);
+            this.lblCount.Name = "lblCount";
+            this.lblCount.Size = new System.Drawing.Size(13, 15);
+            this.lblCount.TabIndex = 37;
+            this.lblCount.Text = "0";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lblTempo);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.lblCount);
+            this.groupBox1.Location = new System.Drawing.Point(157, 415);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(596, 100);
+            this.groupBox1.TabIndex = 38;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Informacoes";
+            // 
+            // lblTempo
+            // 
+            this.lblTempo.AutoSize = true;
+            this.lblTempo.Location = new System.Drawing.Point(122, 53);
+            this.lblTempo.Name = "lblTempo";
+            this.lblTempo.Size = new System.Drawing.Size(13, 15);
+            this.lblTempo.TabIndex = 41;
+            this.lblTempo.Text = "0";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(7, 53);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(121, 15);
+            this.label7.TabIndex = 40;
+            this.label7.Text = "Tempo de Execucao : ";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(7, 38);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(150, 15);
+            this.label6.TabIndex = 39;
+            this.label6.Text = "Embaralhamento : 32 vezes";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 23);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(161, 15);
+            this.label5.TabIndex = 38;
+            this.label5.Text = "Quantidade de Movimentos :";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(876, 450);
+            this.ClientSize = new System.Drawing.Size(876, 539);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cbMetodo);
             this.Controls.Add(this.btnResolver);
             this.Controls.Add(this.btnRestartEF);
@@ -433,6 +500,8 @@ namespace Puzzle
             this.Controls.Add(this.btnI1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -476,6 +545,12 @@ namespace Puzzle
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbMetodo;
         private System.Windows.Forms.Button btnResolver;
+        private System.Windows.Forms.Label lblCount;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblTempo;
+        private System.Windows.Forms.Label label7;
     }
 }
 
