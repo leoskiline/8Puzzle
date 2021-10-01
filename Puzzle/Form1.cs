@@ -112,6 +112,10 @@ namespace Puzzle
             btnI7.Text = matriz[2, 0].ToString();
             btnI8.Text = matriz[2, 1].ToString();
             btnI0.Text = matriz[2, 2].ToString();
+
+            //Button[,] matrizz = new Button[3, 3];
+
+            //matrizz[0, 0] = btnI1;
         }
 
         private void preencherFinal(Button btn)
@@ -294,7 +298,6 @@ namespace Puzzle
                     {
                         heuristica++;
                     }
-                    
                 }
             return heuristica;
         }
@@ -324,57 +327,36 @@ namespace Puzzle
             return igual;
         }
 
-        private void ResolverAStar()
+        private void ResolveBranchAndBound()
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            //Declarações...
-            int linha, coluna, aux, distHeuristica, custo = 0;
-            listaEstadosUsados.Add(MatrizEmbaralhada);
-            // Calcular distância Heurística
-            distHeuristica = calcularHeuristica(MatrizEmbaralhada);
-            Fila fila = new Fila();
 
-            // Insere elemento matriz criado na fila
-            //elemento = enqueue(elemento, MatrizEmbaralhada, custo + distHeuristica);
+            int linha, coluna, aux, custo = 0;
+            listaEstadosUsados.Add(MatrizEmbaralhada);
+            Fila fila = new Fila();
             No no = new No();
             no.Estado = MatrizEmbaralhada;
-            no.Prioridade = distHeuristica;
-            while (!verificaEstadoAtualIgualFinal(no.Estado)) // enquanto a fila não estiver vazia
+            no.Prioridade = 0;
+            fila.Enqueue(no);
+            while (!fila.IsEmpty() && !verificaEstadoAtualIgualFinal(no.Estado))
             {
-                // Procura o 0 nesse elemento matriz retirado da fila e atribui as coordenadas
                 (linha, coluna) = procurarVazio(no.Estado);
-
-                // Verifica as possíveis posições de movimentação do 0
-                // ↓↓↓↓
 
                 if (linha > 0) // Pode ir para cima ?
                 {
-                    // Faz uma cópia do elemento matriz
-                    int[,] matrizAux = new int[3,3];
-                        
+                    int[,] matrizAux = new int[3, 3];
+
                     copiaMatriz(matrizAux, no.Estado);
 
-                    // Trocar 0 para a posição permitida
                     aux = matrizAux[linha, coluna];
                     matrizAux[linha, coluna] = matrizAux[linha - 1, coluna];
                     matrizAux[linha - 1, coluna] = aux;
 
-                    // Verificar se o estado da cópia gerada já foi usado
-                    if (!estadoUtilizado(matrizAux)) // se houver, ignora...
+                    if (!estadoUtilizado(matrizAux))
                     {
-                        // Insere na lista de usados
                         listaEstadosUsados.Add(matrizAux);
-
-                        // Calcula distância
-                        distHeuristica = calcularHeuristica(matrizAux);
-
-                        // Criar novo elemento a partir do novo estado gerado
-                        //elemento = newNode(matrizAux, custo + distHeuristica);
-
-                        // Insere o novo elemento matriz na fila de prioridade
-                        //elemento = enqueue(elemento, matrizAux, custo + distHeuristica);
-                        fila.Enqueue(new No(matrizAux,custo+distHeuristica));
+                        fila.Enqueue(new No(no, matrizAux, no.Prioridade+1));
                     }
                 }
 
@@ -388,18 +370,10 @@ namespace Puzzle
                     matrizAux[linha, coluna] = matrizAux[linha + 1, coluna];
                     matrizAux[linha + 1, coluna] = aux;
 
-                    if (!estadoUtilizado(matrizAux)) // se não houver estado usado
+                    if (!estadoUtilizado(matrizAux))
                     {
-                        //insere na lista de usados
                         listaEstadosUsados.Add(matrizAux);
-
-                        //calcula distância
-                        distHeuristica = calcularHeuristica(matrizAux);
-
-                        //Criar novo elemento e inserir na fila de prioridade
-                        //elemento = newNode(matrizAux, custo + distHeuristica);
-                        //elemento = enqueue(elemento, matrizAux, custo+distHeuristica);
-                        fila.Enqueue(new No(matrizAux, custo + distHeuristica));
+                        fila.Enqueue(new No(no, matrizAux, no.Prioridade+1));
                     }
                 }
 
@@ -413,18 +387,10 @@ namespace Puzzle
                     matrizAux[linha, coluna] = matrizAux[linha, coluna - 1];
                     matrizAux[linha, coluna - 1] = aux;
 
-                    if (!estadoUtilizado(matrizAux)) // se não houver estado usado
+                    if (!estadoUtilizado(matrizAux))
                     {
-                        //insere na lista de usados
                         listaEstadosUsados.Add(matrizAux);
-
-                        //calcula distância
-                        distHeuristica = calcularHeuristica(matrizAux);
-
-                        //Criar novo elemento e inserir na fila de prioridade
-                        //elemento = newNode(matrizAux, custo + distHeuristica);
-                        //elemento = enqueue(elemento, matrizAux, custo+distHeuristica);
-                        fila.Enqueue(new No(matrizAux, custo + distHeuristica));
+                        fila.Enqueue(new No(no, matrizAux, no.Prioridade + 1));
                     }
                 }
 
@@ -438,31 +404,129 @@ namespace Puzzle
                     matrizAux[linha, coluna] = matrizAux[linha, coluna + 1];
                     matrizAux[linha, coluna + 1] = aux;
 
-                    if (!estadoUtilizado(matrizAux)) // se não houver estado usado
+                    if (!estadoUtilizado(matrizAux))
                     {
-                        //insere na lista de usados
                         listaEstadosUsados.Add(matrizAux);
-
-                        //calcula distância
-                        distHeuristica = calcularHeuristica(matrizAux);
-
-                        //Criar novo elemento e inserir na fila de prioridade
-                        //elemento = newNode(matrizAux, custo + distHeuristica);
-                        //elemento = enqueue(elemento, matrizAux, custo+distHeuristica);
-                        fila.Enqueue(new No(matrizAux, custo + distHeuristica));
+                        fila.Enqueue(new No(no, matrizAux, no.Prioridade + 1));
                     }
                 }
-                // Retida elemento matriz
                 no = fila.Dequeue();
+                Refresh();
                 popularBotoes(no.Estado);
-                // Incremeta o custo acumulado
+                Thread.Sleep(10);
                 custo++;
                 lblCount.Text = custo.ToString();
             }
+            lblPassos.Text = listaEstadosUsados.Count.ToString();
             popularBotoes(no.Estado);
             stopwatch.Stop();
             TimeSpan ts = stopwatch.Elapsed;
+            // Format and display the TimeSpan value.
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            lblTempo.Text = elapsedTime;
+        }
 
+        private void ResolverAStar()
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            int linha, coluna, aux, distHeuristica, custo = 0;
+            listaEstadosUsados.Add(MatrizEmbaralhada);
+            distHeuristica = calcularHeuristica(MatrizEmbaralhada);
+            Fila fila = new Fila();
+            No no = new No();
+            no.Estado = MatrizEmbaralhada;
+            no.Prioridade = distHeuristica;
+            fila.Enqueue(no);
+            while (!fila.IsEmpty() && !verificaEstadoAtualIgualFinal(no.Estado))
+            {
+                (linha, coluna) = procurarVazio(no.Estado);
+
+                if (linha > 0) // Pode ir para cima ?
+                {
+                    int[,] matrizAux = new int[3,3];
+                        
+                    copiaMatriz(matrizAux, no.Estado);
+
+                    aux = matrizAux[linha, coluna];
+                    matrizAux[linha, coluna] = matrizAux[linha - 1, coluna];
+                    matrizAux[linha - 1, coluna] = aux;
+
+                    if (!estadoUtilizado(matrizAux))
+                    {
+                        listaEstadosUsados.Add(matrizAux);
+                        distHeuristica = calcularHeuristica(matrizAux);
+                        fila.Enqueue(new No(no, matrizAux,custo+distHeuristica));
+                    }
+                }
+
+                if (linha < 2) // Pode ir para baixo ?
+                {
+                    int[,] matrizAux = new int[3, 3];
+
+                    copiaMatriz(matrizAux, no.Estado);
+
+                    aux = matrizAux[linha, coluna];
+                    matrizAux[linha, coluna] = matrizAux[linha + 1, coluna];
+                    matrizAux[linha + 1, coluna] = aux;
+
+                    if (!estadoUtilizado(matrizAux))
+                    {
+                        listaEstadosUsados.Add(matrizAux);
+                        distHeuristica = calcularHeuristica(matrizAux);
+                        fila.Enqueue(new No(no, matrizAux, custo + distHeuristica));
+                    }
+                }
+
+                if (coluna > 0) // Pode ir para esquerda ?
+                {
+                    int[,] matrizAux = new int[3, 3];
+
+                    copiaMatriz(matrizAux, no.Estado);
+
+                    aux = matrizAux[linha, coluna];
+                    matrizAux[linha, coluna] = matrizAux[linha, coluna - 1];
+                    matrizAux[linha, coluna - 1] = aux;
+
+                    if (!estadoUtilizado(matrizAux))
+                    {
+                        listaEstadosUsados.Add(matrizAux);
+                        distHeuristica = calcularHeuristica(matrizAux);
+                        fila.Enqueue(new No(no, matrizAux, custo + distHeuristica));
+                    }
+                }
+
+                if (coluna < 2) // Pode ir para direita ?
+                {
+                    int[,] matrizAux = new int[3, 3];
+
+                    copiaMatriz(matrizAux, no.Estado);
+
+                    aux = matrizAux[linha, coluna];
+                    matrizAux[linha, coluna] = matrizAux[linha, coluna + 1];
+                    matrizAux[linha, coluna + 1] = aux;
+
+                    if (!estadoUtilizado(matrizAux))
+                    {
+                        listaEstadosUsados.Add(matrizAux);
+                        distHeuristica = calcularHeuristica(matrizAux);
+                        fila.Enqueue(new No(no, matrizAux, custo + distHeuristica));
+                    }
+                }
+                no = fila.Dequeue();
+                Refresh();
+                popularBotoes(no.Estado);
+                Thread.Sleep(100);
+                custo++;
+                lblCount.Text = custo.ToString();
+            }
+            lblPassos.Text = listaEstadosUsados.Count.ToString();
+            popularBotoes(no.Estado);
+            stopwatch.Stop();
+            TimeSpan ts = stopwatch.Elapsed;
             // Format and display the TimeSpan value.
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                 ts.Hours, ts.Minutes, ts.Seconds,
@@ -472,13 +536,17 @@ namespace Puzzle
 
         private void btnResolver_Click(object sender, EventArgs e)
         {
-            if (cbMetodo.SelectedIndex == 1) // A* ou (A Star)
+            if (cbMetodo.SelectedIndex == 0)
+            {
+                MessageBox.Show("É preciso selecionar um método de resolução","Atenção!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (cbMetodo.SelectedIndex == 1) // A* ou (A Star)
             {
                 ResolverAStar();
             }
             else
             {
-
+                ResolveBranchAndBound();
             }
         }
     }

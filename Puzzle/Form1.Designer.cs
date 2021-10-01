@@ -67,6 +67,8 @@ namespace Puzzle
             this.btnResolver = new System.Windows.Forms.Button();
             this.lblCount = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblPassos = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.lblTempo = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -148,7 +150,7 @@ namespace Puzzle
             // 
             // btnEmbaralhar
             // 
-            this.btnEmbaralhar.Location = new System.Drawing.Point(105, 317);
+            this.btnEmbaralhar.Location = new System.Drawing.Point(109, 288);
             this.btnEmbaralhar.Name = "btnEmbaralhar";
             this.btnEmbaralhar.Size = new System.Drawing.Size(101, 23);
             this.btnEmbaralhar.TabIndex = 1;
@@ -380,7 +382,7 @@ namespace Puzzle
             this.cbMetodo.Items.AddRange(new object[] {
             "",
             "A*",
-            "Outro"});
+            "Branch And Bound"});
             this.cbMetodo.Location = new System.Drawing.Point(351, 307);
             this.cbMetodo.Name = "cbMetodo";
             this.cbMetodo.Size = new System.Drawing.Size(175, 23);
@@ -400,7 +402,7 @@ namespace Puzzle
             // lblCount
             // 
             this.lblCount.AutoSize = true;
-            this.lblCount.Location = new System.Drawing.Point(165, 23);
+            this.lblCount.Location = new System.Drawing.Point(76, 23);
             this.lblCount.Name = "lblCount";
             this.lblCount.Size = new System.Drawing.Size(13, 15);
             this.lblCount.TabIndex = 37;
@@ -408,6 +410,8 @@ namespace Puzzle
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblPassos);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.lblTempo);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
@@ -419,6 +423,24 @@ namespace Puzzle
             this.groupBox1.TabIndex = 38;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Informacoes";
+            // 
+            // lblPassos
+            // 
+            this.lblPassos.AutoSize = true;
+            this.lblPassos.Location = new System.Drawing.Point(182, 68);
+            this.lblPassos.Name = "lblPassos";
+            this.lblPassos.Size = new System.Drawing.Size(13, 15);
+            this.lblPassos.TabIndex = 43;
+            this.lblPassos.Text = "0";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(7, 68);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(178, 15);
+            this.label8.TabIndex = 42;
+            this.label8.Text = "Quantidade de passos visitados: ";
             // 
             // lblTempo
             // 
@@ -452,9 +474,9 @@ namespace Puzzle
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(7, 23);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(161, 15);
+            this.label5.Size = new System.Drawing.Size(69, 15);
             this.label5.TabIndex = 38;
-            this.label5.Text = "Quantidade de Movimentos :";
+            this.label5.Text = "Custo Total:";
             // 
             // Form1
             // 
@@ -551,6 +573,8 @@ namespace Puzzle
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblTempo;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblPassos;
+        private System.Windows.Forms.Label label8;
     }
 }
 

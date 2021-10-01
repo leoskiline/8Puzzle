@@ -8,7 +8,7 @@ namespace Puzzle
 {
     public class No
     {
-
+        private No pai;
         private int[,] estado;
         private int prioridade;
         private No prox;
@@ -19,8 +19,9 @@ namespace Puzzle
         public No Prox { get => prox; set => prox = value; }
         public No Ant { get => ant; set => ant = value; }
 
-        public No(int[,] estado, int prioridade)
+        public No(No pai, int[,] estado, int prioridade)
         {
+            this.pai = pai;
             this.estado = estado;
             this.prioridade = prioridade;
             prox = null;
